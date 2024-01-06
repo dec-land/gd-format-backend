@@ -4,13 +4,12 @@ import { helmet } from "elysia-helmet";
 
 import console from "console";
 import cors from "@elysiajs/cors";
-import rateLimit from "./plugins/rate-limit.ts";
 import { FormatController } from "./format/format.controller.ts";
 
 const app = new Elysia()
   .use(cors())
   .use(helmet)
-  .use(rateLimit)
+  // .use(rateLimit)
   .decorate("formatController", new FormatController())
 
   .get("/health", () => {
