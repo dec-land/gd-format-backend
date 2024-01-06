@@ -12,7 +12,9 @@
     "@types/node": "^20.8.7",
     "bun-types": "latest",
     "eslint": "^8.52.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^5.0.5"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -20,8 +22,15 @@
   "license": "UNLICENSED",
   "name": "gdscript-format-backend",
   "scripts": {
-    "build": "bunx tsc --noEmit",
-    "start": "bun run --watch src/index.ts"
+    "build": "rimraf dist && tsc",
+    "start": "bun run --watch src/index.ts",
+    "add-build": "git add dist",
+    "check": "bunx tsc --noEmit"
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "pre-commit": [
+    "check",
+    "build",
+    "add-build"
+  ]
 }

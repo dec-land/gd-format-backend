@@ -8,6 +8,7 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "strict": true,
+    "outDir": "dist",
     "target": "ESNext",
     "types": [
       "bun-types"
