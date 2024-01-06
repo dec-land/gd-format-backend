@@ -8,6 +8,7 @@
     "elysia-helmet": "^1.0.1",
     "elysia-rate-limit": "^2.0.1"
   },
+  "type": "module",
   "devDependencies": {
     "@types/node": "^20.8.7",
     "bun-types": "latest",
