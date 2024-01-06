@@ -1,11 +1,11 @@
 import { Elysia, t } from "elysia";
-import { FormatController } from "./format/format.controller";
 
 import { helmet } from "elysia-helmet";
 
 import console from "console";
 import cors from "@elysiajs/cors";
-import rateLimit from "./plugins/rate-limit";
+import rateLimit from "./plugins/rate-limit.ts";
+import { FormatController } from "./format/format.controller.ts";
 
 const app = new Elysia()
   .use(cors())
