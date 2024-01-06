@@ -1,20 +1,15 @@
 {
-    "version": 2,
+    "devCommand": "npm start",
     "builds": [
         {
-            "config": {
-                "includeFiles": [
-                    "dist/**"
-                ]
-            },
-            "src": "dist/index.js",
+            "src": "src/index.ts",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "dist/index.js",
+            "dest": "src/index.ts",
             "headers": {
                 "Access-Control-Allow-Credentials": "true",
                 "Access-Control-Allow-Origin": "*",
