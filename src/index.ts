@@ -1,16 +1,15 @@
 import { Elysia, t } from "elysia";
-
-import { helmet } from "elysia-helmet";
+// import { helmet } from "elysia-helmet";
 
 import console from "console";
-import cors from "@elysiajs/cors";
 import { FormatController } from "./format/format.controller";
 import { Is } from "@dec-land/as-is";
 import Parse from "./util/parse";
+import cors from "@elysiajs/cors";
 
 const app = new Elysia()
-  .use(cors({ origin: ["http://localhost:3001"] }))
-  .use(helmet)
+  .use(cors())
+  // .use(helmet)
   .decorate("formatController", new FormatController())
 
   .get("/health", () => {
