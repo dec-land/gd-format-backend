@@ -17,9 +17,7 @@ FROM base as build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3 python3-pip
-
-RUN pip install gdtoolkit==4.*
+    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
 # Install node modules
 COPY --link bun.lockb package.json ./
@@ -33,6 +31,12 @@ RUN bun run build
 
 # Final stage for app image
 FROM base
+
+# Install gdformat
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y python-is-python3 python3-pip
+
+RUN pip install gdtoolkit==4.*
 
 # Copy built application
 COPY --from=build /app/out /app
