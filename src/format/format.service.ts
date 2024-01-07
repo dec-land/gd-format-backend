@@ -18,13 +18,15 @@ export class FormatService {
     } catch (error) {
       if (error instanceof Error) {
         console.error(`Error: ${error.message}`);
+        throw new Error(
+          `Unable to run the gdformat command - ${error.message}`
+        );
       }
     } finally {
       if (await exists(fileName)) {
         await unlink(fileName);
       }
     }
-    return body;
   }
 }
 

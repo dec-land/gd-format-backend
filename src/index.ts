@@ -5,12 +5,11 @@ import { helmet } from "elysia-helmet";
 import console from "console";
 import cors from "@elysiajs/cors";
 import { FormatController } from "./format/format.controller";
-import { As, Is } from "@dec-land/as-is";
+import { Is } from "@dec-land/as-is";
 import Parse from "./util/parse";
-import { type } from "os";
 
 const app = new Elysia()
-  .use(cors())
+  .use(cors({ origin: ["http://localhost:3001"] }))
   .use(helmet)
   .decorate("formatController", new FormatController())
 
