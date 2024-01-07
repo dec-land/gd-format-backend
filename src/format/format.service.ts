@@ -4,17 +4,13 @@ import { promisify } from "util";
 const exec = promisify(require("child_process").exec);
 
 export class FormatService {
-  public async formatGDScript(body: string) {
+  public async formatGDScript(body: string, max_line_length: number = 100) {
     const fileName = `${randomUUID()}.gd`;
-    console.log(`Creating file with name ${fileName}`);
 
     await appendFile(fileName, body);
 
     try {
-      const { stdout, stderr } = await exec(`gdformat ${fileName}`);
-
-      console.log(`stdout: ${stdout}`);
-      console.error(`stderr: ${stderr}`);
+      await exec(`gdformat ${fileName} -l ${max_line_length}`);
 
       const formatted = await readFile(fileName, "utf8");
 
