@@ -1,17 +1,22 @@
 import { Elysia, t } from "elysia";
-// import { helmet } from "elysia-helmet";
 
 import console from "console";
 import { FormatController } from "./format/format.controller";
-import { Is } from "@dec-land/as-is";
 import Parse from "./util/parse";
 import cors from "@elysiajs/cors";
+import InvalidGDScriptError from "./errors/InvalidGDScriptError";
+import BaseError from "./errors/BaseError";
 
 const app = new Elysia()
   .use(cors())
   // .use(helmet)
   .decorate("formatController", new FormatController())
-
+  .onError(({ error, set }) => {
+    if (error instanceof BaseError) {
+      set.status = error.status;
+    }
+    return error;
+  })
   .get("/health", () => {
     return { status: "Server is up and running" };
   })
@@ -19,30 +24,17 @@ const app = new Elysia()
     app.group("/format", (app) =>
       app.post(
         "/gd-script",
-        ({ formatController, body, query: { max_line_length }, set }) => {
-          if (
-            max_line_length &&
-            (!Is.integer(max_line_length) || max_line_length < 50)
-          ) {
-            set.status = 422;
-            throw new Error("max_line_length must be an integer >= 50");
-          }
-          return formatController.formatGDScript(body, max_line_length);
+        ({ formatController, body, query: { max_line_length } }) => {
+          return formatController.formatGDScript(
+            body,
+            Parse.integer(max_line_length) ?? undefined
+          );
         },
         {
-          transform: ({ query }) => {
-            // Parse as integer if its provided
-            if (query.max_line_length) {
-              query.max_line_length = Parse.integer(
-                query.max_line_length,
-                undefined
-              );
-            }
-          },
           type: "text",
           body: t.String({ minLength: 1, maxLength: 1000000 }),
           query: t.Object({
-            max_line_length: t.Optional(t.Integer({ minimum: 50 })),
+            max_line_length: t.Optional(t.Numeric({ minimum: 50 })),
           }),
         }
       )
