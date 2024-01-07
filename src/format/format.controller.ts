@@ -1,7 +1,7 @@
-import formatService from "./format.service.ts";
+import formatService from "./format.service";
 
 export class FormatController {
-  public formatGDScript(body: string) {
+  public formatGDScript(body: string, max_line_length: number) {
     return formatService.formatGDScript(body);
   }
 }

@@ -5,31 +5,22 @@
     "@elysiajs/swagger": "^0.7.3",
     "@sinclair/typebox": "^0.31.18",
     "elysia": "latest",
-    "elysia-helmet": "^1.0.1",
-    "elysia-rate-limit": "^2.0.1"
+    "elysia-helmet": "^1.0.1"
   },
-  "type": "module",
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.0",
     "@types/node": "^20.8.7",
     "bun-types": "latest",
     "eslint": "^8.52.0",
-    "typescript": "^5.2.2",
-    "pre-commit": "^1.2.2",
-    "rimraf": "^5.0.5"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "typescript": "^5.2.2"
   },
   "license": "UNLICENSED",
   "name": "gdscript-format-backend",
   "scripts": {
-    "build": "rimraf dist && tsc",
-    "start": "bun run --watch src/index.ts",
-    "check": "bunx tsc --noEmit",
-    "prepare": "npm run build"
+    "build": "bun build --minify --target=bun src/index.ts --outdir=./out",
+    "start:dev": "bun run --watch src/index.ts",
+    "start": "NODE_ENV=production bun run index.js",
+    "check": "bunx tsc --noEmit"
   },
-  "version": "1.0.0",
-  "pre-commit": [
-    "check"
-  ]
+  "version": "1.0.0"
 }
