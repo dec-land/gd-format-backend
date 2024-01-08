@@ -6,10 +6,10 @@ import BaseError from "../errors/BaseError";
 const exec = promisify(require("child_process").exec);
 
 export class FormatService {
-  public async formatGDScript(body: string, max_line_length: number = 100) {
+  public async formatGDScript(code: string, max_line_length: number = 100) {
     const fileName = `${randomUUID()}.gd`;
 
-    await appendFile(fileName, body);
+    await appendFile(fileName, code);
 
     try {
       await exec(`gdformat ${fileName} -l ${max_line_length}`);
@@ -26,7 +26,7 @@ export class FormatService {
           );
         }
         console.error(`Error: ${error.message}`);
-        throw new BaseError('Internal server error', error.message);
+        throw new BaseError("Internal server error", error.message);
       }
     } finally {
       if (await exists(fileName)) {
