@@ -31,7 +31,7 @@ export class LintService {
         // The command has errored but its actually ran as intended.
 
         // Extract the number of failures so we can return it properly.
-        const failureMessageRegex = /Failure: (\d+) problems found/;
+        const failureMessageRegex = /Failure: (\d+) problems? found/;
         const match = error.message.match(failureMessageRegex);
 
         if (match) {
