@@ -3,6 +3,7 @@
     "@dec-land/as-is": "^1.1.1",
     "@elysiajs/cors": "^0.7.1",
     "@elysiajs/swagger": "^0.7.3",
+    "@grotto/logysia": "^0.1.1",
     "@sinclair/typebox": "^0.31.18",
     "chatgpt": "^5.2.5",
     "elysia": "latest",

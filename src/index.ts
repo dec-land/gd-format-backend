@@ -6,13 +6,16 @@ import Parse from "./util/parse";
 import cors from "@elysiajs/cors";
 import BaseError from "./errors/BaseError";
 import { LintController } from "./lint/lint.controller";
-import { helmet } from "elysia-helmet";
+// import { helmet } from "elysia-helmet";
 import { ConvertController } from "./convert/convert.controller";
+import { logger } from "@grotto/logysia";
+import { helmet } from "elysia-helmet";
 
 const app = new Elysia()
-  .use(cors())
-  // .use(cors({ origin: ["https://gdscriptformatter.com"] }))
-  // .use(helmet())
+  // .use(cors())
+  .use(logger())
+  .use(cors({ origin: ["https://gdscriptformatter.com"] }))
+  .use(helmet())
   .decorate("formatController", new FormatController())
   .decorate("lintController", new LintController())
   .decorate("convertController", new ConvertController())

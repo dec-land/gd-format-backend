@@ -1,6 +1,6 @@
 # GDScript Formatter Backend
 
-Welcome to the GDScript Formatter Backend! This backend server is designed to format, lint, and convert GDScript. This runs on Bun and ElysiaJS. [Gdtoolkit](https://github.com/Scony/godot-gdscript-toolkit) is used for formatting and linting of GDScript. It exposes various routes to enhance the functionality of GDScript development. This is currently being used on [GDScript Formatter](https://www.gdscriptformatter.com/).
+Welcome to the GDScript Formatter Backend! This backend server is designed to format, lint, and convert GDScript. This runs on Bun and ElysiaJS. [Gdtoolkit](https://github.com/Scony/godot-gdscript-toolkit) is used for formatting and linting of GDScript. It exposes various routes to enhance the functionality of GDScript development. This is currently being used on [GDScript Formatter](https://www.gdscriptformatter.com/). The repository for the frontend can be found [here](https://github.com/dec-land/gd-format).
 
 ## Getting Started
 
