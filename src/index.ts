@@ -6,12 +6,16 @@ import Parse from "./util/parse";
 import cors from "@elysiajs/cors";
 import BaseError from "./errors/BaseError";
 import { LintController } from "./lint/lint.controller";
+import { helmet } from "elysia-helmet";
+import { ConvertController } from "./convert/convert.controller";
 
 const app = new Elysia()
   .use(cors())
-  // .use(helmet)
+  // .use(cors({ origin: ["https://gdscriptformatter.com"] }))
+  // .use(helmet())
   .decorate("formatController", new FormatController())
   .decorate("lintController", new LintController())
+  .decorate("convertController", new ConvertController())
   .onError(({ error, set }) => {
     if (error instanceof BaseError) {
       set.status = error.status;
@@ -52,6 +56,35 @@ const app = new Elysia()
             body: t.String({ minLength: 1, maxLength: 1000000 }),
           }
         )
+      )
+      .group("/convert", (app) =>
+        app
+          .post(
+            "/gdscript-csharp",
+            async ({ convertController, body, query: { version } }) => {
+              return convertController.convertGdScriptToCSharp(body, version);
+            },
+            {
+              type: "text",
+              body: t.String({ minLength: 1, maxLength: 10000 }),
+              query: t.Object({
+                version: t.Union([t.Literal("3"), t.Literal("4")]),
+              }),
+            }
+          )
+          .post(
+            "/csharp-gdscript",
+            async ({ convertController, body, query: { version } }) => {
+              return convertController.convertCSharpToGdScript(body, version);
+            },
+            {
+              type: "text",
+              body: t.String({ minLength: 1, maxLength: 10000 }),
+              query: t.Object({
+                version: t.Union([t.Literal("3"), t.Literal("4")]),
+              }),
+            }
+          )
       )
   );
 
