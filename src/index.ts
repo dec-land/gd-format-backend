@@ -14,7 +14,14 @@ import { helmet } from "elysia-helmet";
 const app = new Elysia()
   // .use(cors())
   .use(logger())
-  .use(cors({ origin: ["https://gdscriptformatter.com"] }))
+  .use(
+    cors({
+      origin: [
+        "https://gdscriptformatter.com",
+        "https://www.gdscriptformatter.com",
+      ],
+    })
+  )
   .use(helmet())
   .decorate("formatController", new FormatController())
   .decorate("lintController", new LintController())
