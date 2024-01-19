@@ -16,10 +16,7 @@ const app = new Elysia()
   .use(logger())
   .use(
     cors({
-      origin: [
-        "https://gdscriptformatter.com",
-        "https://www.gdscriptformatter.com",
-      ],
+      origin: [/.*gdscriptformatter\.com.*/, /localhost.*/],
     })
   )
   .use(helmet())
