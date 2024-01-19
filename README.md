@@ -10,7 +10,13 @@ First, install bun if you haven't already:
 npm install -g bun
 ```
 
-Secondly, run the development server:
+Secondly, install required modules:
+
+```bash
+bun install
+```
+
+Thirdly, run the development server:
 
 ```bash
 bun start:dev
