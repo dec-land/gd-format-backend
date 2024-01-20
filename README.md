@@ -7,6 +7,7 @@ Welcome to the GDScript Formatter Backend! This backend server is designed to fo
 ## TODO
 
 - [ ] Add 100% test coverage.
+- [ ] Improve error handling for Chat GPT rate limit etc.
 - [ ] Add Husky pre-commit hooks for tests and successful build.
 - [ ] Fix fly.io automatic deployments.
 - [ ] Improve extraction of code within Chat GPT response for C# (fix the regex that was used).
