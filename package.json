@@ -21,6 +21,7 @@
   "scripts": {
     "build": "bun build --minify --target=bun src/index.ts --outdir=./out",
     "start:dev": "bun run --watch src/index.ts",
+    "test": "bun test",
     "start": "NODE_ENV=production bun run index.js",
     "check": "bunx tsc --noEmit"
   },

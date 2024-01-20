@@ -1,6 +1,7 @@
 import { ChatGPTAPI } from "chatgpt";
 import { ConversionType, GodotVersion } from "../types/Convert";
 import BaseError from "../errors/BaseError";
+import console from "console";
 
 export class ConvertService {
   public async convert(
@@ -19,11 +20,18 @@ export class ConvertService {
       const codeMessage =
         type === "gdscript-c#" ? "GDScript code to C#" : "C# code to GDScript";
 
-      const res = await api.sendMessage(
-        `Convert the following ${codeMessage} for Godot version ${version}. Include the converted code and nothing else.
+      const res =
+        await api.sendMessage(`Convert the following ${codeMessage} for Godot version ${version}. Return the converted code and nothing else.
         
-        ${code}`
-      );
+        ${code}`);
+
+      if (res.text.includes("```csharp")) {
+        return res.text
+          .replaceAll("```csharp", "")
+          .replaceAll("```", "")
+          .trim();
+      }
+
       return res.text;
     } catch (error) {
       if (error instanceof Error) {

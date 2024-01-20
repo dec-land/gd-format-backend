@@ -2,6 +2,17 @@
 
 Welcome to the GDScript Formatter Backend! This backend server is designed to format, lint, and convert GDScript. This runs on Bun and ElysiaJS. [Gdtoolkit](https://github.com/Scony/godot-gdscript-toolkit) is used for formatting and linting of GDScript. It exposes various routes to enhance the functionality of GDScript development. This is currently being used on [GDScript Formatter](https://www.gdscriptformatter.com/). The repository for the frontend can be found [here](https://github.com/dec-land/gd-format).
 
+---
+
+## TODO
+
+- [ ] Add 100% test coverage.
+- [ ] Add Husky pre-commit hooks for tests and successful build.
+- [ ] Fix fly.io automatic deployments.
+- [ ] Improve extraction of code within Chat GPT response for C# (fix the regex that was used).
+
+---
+
 ## Getting Started
 
 First, install bun if you haven't already:
@@ -23,6 +34,15 @@ bun start:dev
 ```
 
 The server should then be accessible at [http://localhost:3001](http://localhost:3001/health)
+
+## Running Tests
+
+Tests can be ran using the bun test runner:
+
+```bash
+bun test
+```
+
 
 ## Routes
 
