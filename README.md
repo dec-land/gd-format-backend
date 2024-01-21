@@ -6,12 +6,14 @@ Welcome to the GDScript Formatter Backend! This backend server is designed to fo
 
 ## TODO
 
+- [ ] Fix format.service/lint.service tests (exec not mocking) + Add remaining tests for specific use case/errors
 - [ ] Add 100% test coverage.
 - [ ] Improve error handling for Chat GPT rate limit etc.
 - [ ] Add husky pre commit hooks for successful build, eslint + prettier, and tests when implemented
 - [ ] Add proper eslint + prettier configs
 - [ ] Fix fly.io automatic deployments.
 - [ ] Improve extraction of code within Chat GPT response for C# (fix the regex that was used).
+- [ ] Swap to using jest as bun test just isn't ready yet, can't reset module mocks
 
 
 ---

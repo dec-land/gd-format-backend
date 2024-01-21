@@ -34,10 +34,10 @@ class Parse {
    * Parses the given string as an integer.
    * @return a number (or null if defaultValue = null and value is not an integer)
    */
-  public static integer<T, Default = null>(
-    value: T,
+  public static integer<Default = null>(
+    value: unknown,
     defaultVal?: Default
-  ): T extends number ? T : Default extends undefined ? null : Default {
+  ): number | Default {
     // TODO - fix the complaining of the typing here
     if (value === "" || value == null) return (defaultVal ?? null) as any;
     const parsed = Number(value);

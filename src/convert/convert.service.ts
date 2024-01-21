@@ -21,13 +21,20 @@ export class ConvertService {
         type === "gdscript-c#" ? "GDScript code to C#" : "C# code to GDScript";
 
       const res =
-        await api.sendMessage(`Convert the following ${codeMessage} for Godot version ${version}. Return the converted code and nothing else.
+        await api.sendMessage(`[no prose] [output only code] Convert the following ${codeMessage} for Godot version ${version}.
         
         ${code}`);
 
       if (res.text.includes("```csharp")) {
         return res.text
           .replaceAll("```csharp", "")
+          .replaceAll("```", "")
+          .trim();
+      }
+
+      if (res.text.includes("```gdscript")) {
+        return res.text
+          .replaceAll("```gdscript", "")
           .replaceAll("```", "")
           .trim();
       }

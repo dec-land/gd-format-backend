@@ -10,6 +10,14 @@ const sendMessageMock = jest.fn().mockResolvedValue({
 
 beforeEach(() => {
   sendMessageMock.mockClear();
+});
+
+const gdScriptMock = `print('hello')`;
+const csharpMock = `GD.Print("hello");`;
+const version: GodotVersion = "4";
+const mockAPIKey = "KEY";
+
+describe("Convert Service", () => {
   mock.module("chatgpt", () => {
     return {
       ChatGPTAPI: jest.fn().mockImplementation(() => {
@@ -19,14 +27,7 @@ beforeEach(() => {
       }),
     };
   });
-});
 
-const gdScriptMock = `print('hello')`;
-const csharpMock = `GD.Print("hello");`;
-const version: GodotVersion = "4";
-const mockAPIKey = "KEY";
-
-describe("Convert Service", () => {
   test("it throws an error if api key is not in the env variables", async () => {
     process.env.OPENAI_API_KEY = undefined;
     await expect(
@@ -71,16 +72,11 @@ describe("Convert Service", () => {
   test("correctly removes the c# markdown", async () => {
     sendMessageMock.mockResolvedValueOnce({
       text: `\`\`\`csharp
-        using Godot;
-        
-        public class YourScriptName : Node
-        {
-            public override void _Ready()
-            {
-                GD.Print("hello");
-            }
-        }
-        \`\`\``,
+      void Test()
+      {
+          GD.Print("hello");
+      }
+      \`\`\``,
     });
     const res = await convertService.convert(
       gdScriptMock,
@@ -88,7 +84,22 @@ describe("Convert Service", () => {
       "gdscript-c#"
     );
     expect(res).toEqual(
-      'using Godot;\n        \n        public class YourScriptName : Node\n        {\n            public override void _Ready()\n            {\n                GD.Print("hello");\n            }\n        }'
+      'void Test()\n      {\n          GD.Print("hello");\n      }'
     );
+  });
+
+  test("correctly removes the gdscript markdown", async () => {
+    sendMessageMock.mockResolvedValueOnce({
+      text: `\`\`\`gdscript
+      func test():
+	      print("hello")
+      \`\`\``,
+    });
+    const res = await convertService.convert(
+      csharpMock,
+      version,
+      "c#-gdscript"
+    );
+    expect(res).toEqual('func test():\n\t      print("hello")');
   });
 });
